@@ -11,6 +11,7 @@ var server = app.listen(3000, function(){
 // Static files
 app.use(express.static('public'));
 
+
 // SOCKET SETUP
 var io = socket(server);
 io.on('connection', (socket) => {
@@ -20,6 +21,10 @@ io.on('connection', (socket) => {
     socket.on('chat', function(data){
         io.sockets.emit('chat', data)
     });
+
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data)
+    })
 
 });
 
